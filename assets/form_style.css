@@ -1,0 +1,56 @@
+:root, :host {
+  --fa-font-regular: normal 400 1em/1 "Font Awesome 5 Free";
+  --fa-font-solid: normal 900 1em/1 "Font Awesome 5 Free";
+  --fa-font-brands: normal 400 1em/1 "Font Awesome 5 Brands";
+}
+
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("fa-regular5-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 900;
+  font-display: block;
+  src: url("fa-solid5-900.woff2") format("woff2");
+}
+@font-face {
+  font-family: 'Font Awesome 5 Brands';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("fa-brands5-400.woff2") format("woff2");
+}
+.far,
+.fa-regular {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 400;
+}
+.fas,
+.fa-solid {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+}
+.fab,
+.fa-brands {
+  font-family: 'Font Awesome 5 Brands';
+  font-weight: 400;
+}
+
+
+
+
+.form {
+  font-family: 'Roboto' sans-serif;
+  color: #444;
+  max-width: 80% !important;
+  margin-left: 10% !important;
+}
+
+.header img {
+  width: 80%;
+}
