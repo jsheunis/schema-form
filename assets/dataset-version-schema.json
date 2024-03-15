@@ -1,0 +1,1719 @@
+{
+    "$defs": {
+        "Activity": {
+            "additionalProperties": false,
+            "description": "An activity is something that occurs over a period of time and acts upon or with entities; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities.",
+            "title": "Activity",
+            "type": "object"
+        },
+        "Agent": {
+            "additionalProperties": false,
+            "description": "Something that bears some form of responsibility for an activity taking place, for the existence of an entity, or for another agent's activity.",
+            "properties": {
+                "name": {
+                    "description": "Name of an item or entity.",
+                    "type": "string"
+                }
+            },
+            "title": "Agent",
+            "type": "object"
+        },
+        "AgentInfluence": {
+            "additionalProperties": false,
+            "description": "Capacity of an agent to have an effect on the character, development, or behavior of another Entity, Agent, or Activity",
+            "properties": {
+                "agent": {
+                    "$ref": "#/$defs/Agent",
+                    "description": "References an agent which influenced an entity."
+                },
+                "had_role": {
+                    "$ref": "#/$defs/Role",
+                    "description": "The function of an entity or agent with respect to another entity or resource."
+                },
+                "influencer": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Activity"
+                        },
+                        {
+                            "$ref": "#/$defs/Agent"
+                        },
+                        {
+                            "$ref": "#/$defs/Entity"
+                        }
+                    ],
+                    "description": "Reference the resource (Entity, Agent, or Activity) whose influence is being qualified in a qualified influence pattern."
+                }
+            },
+            "title": "AgentInfluence",
+            "type": "object"
+        },
+        "AgentInfluenceObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [AgentInfluenceObject](https://concepts.datalad.org/ontology/AgentInfluenceObject).",
+            "properties": {
+                "agent": {
+                    "description": "References an agent which influenced an entity.",
+                    "type": "string"
+                },
+                "had_role": {
+                    "description": "The function of an entity or agent with respect to another entity or resource.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "influencer": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Activity"
+                        },
+                        {
+                            "$ref": "#/$defs/Agent"
+                        },
+                        {
+                            "$ref": "#/$defs/Entity"
+                        }
+                    ],
+                    "description": "Reference the resource (Entity, Agent, or Activity) whose influence is being qualified in a qualified influence pattern."
+                }
+            },
+            "title": "AgentInfluenceObject",
+            "type": "object"
+        },
+        "AgentObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [AgentObject](https://concepts.datalad.org/ontology/AgentObject).",
+            "properties": {
+                "meta_code": {
+                    "description": "Context-constraint unique identifier of a metadata object. In contrast to `meta_id`, this identifier is not globally unique, but its uniqueness guarantees are limited to a single metadata document. This is analog to a relative IRI `@id` specification in JSON-LD that needs to be expanded with an appropriate (document) `@base` URI to become globally unique.",
+                    "type": "string"
+                },
+                "meta_type": {
+                    "description": "Type designator of a metadata object.",
+                    "enum": [
+                        "dlco:AgentObject"
+                    ],
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of an item or entity.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "meta_code"
+            ],
+            "title": "AgentObject",
+            "type": "object"
+        },
+        "AgentRoleObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [AgentRoleObject](https://concepts.datalad.org/ontology/AgentRoleObject).",
+            "properties": {
+                "meta_id": {
+                    "description": "Globally unique identifier of a metadata object.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "meta_id"
+            ],
+            "title": "AgentRoleObject",
+            "type": "object"
+        },
+        "Association": {
+            "additionalProperties": false,
+            "description": "Assignment of responsibility to an agent for an activity, indicating that the agent had a role in the activity.",
+            "properties": {
+                "agent": {
+                    "$ref": "#/$defs/Agent",
+                    "description": "References an agent which influenced an entity."
+                },
+                "had_role": {
+                    "$ref": "#/$defs/Role",
+                    "description": "The function of an entity or agent with respect to another entity or resource."
+                },
+                "influencer": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Activity"
+                        },
+                        {
+                            "$ref": "#/$defs/Agent"
+                        },
+                        {
+                            "$ref": "#/$defs/Entity"
+                        }
+                    ],
+                    "description": "Reference the resource (Entity, Agent, or Activity) whose influence is being qualified in a qualified influence pattern."
+                }
+            },
+            "title": "Association",
+            "type": "object"
+        },
+        "Attribution": {
+            "additionalProperties": false,
+            "description": "Attribution is the ascribing of an entity to an agent.",
+            "properties": {
+                "agent": {
+                    "$ref": "#/$defs/Agent",
+                    "description": "References an agent which influenced an entity."
+                },
+                "had_role": {
+                    "$ref": "#/$defs/Role",
+                    "description": "The function of an entity or agent with respect to another entity or resource."
+                },
+                "influencer": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Activity"
+                        },
+                        {
+                            "$ref": "#/$defs/Agent"
+                        },
+                        {
+                            "$ref": "#/$defs/Entity"
+                        }
+                    ],
+                    "description": "Reference the resource (Entity, Agent, or Activity) whose influence is being qualified in a qualified influence pattern."
+                }
+            },
+            "title": "Attribution",
+            "type": "object"
+        },
+        "Checksum": {
+            "additionalProperties": false,
+            "description": "A Checksum is a value that allows to check the integrity of the contents of a file. Even small changes to the content of the file will change its checksum. This class allows the results of a variety of checksum and cryptographic message digest algorithms to be represented.",
+            "properties": {
+                "algorithm": {
+                    "description": "Identifies the algorithm used to produce the subject `Checksum`.",
+                    "type": "string"
+                },
+                "digest": {
+                    "description": "Lower case hexadecimal encoded checksum digest value produced using a specific algorithm.",
+                    "pattern": "^[a-fA-F0-9]+$",
+                    "type": "string"
+                }
+            },
+            "title": "Checksum",
+            "type": "object"
+        },
+        "ChecksumAlgorithm": {
+            "description": "",
+            "enum": [
+                "md5",
+                "sha1",
+                "sha256"
+            ],
+            "title": "ChecksumAlgorithm",
+            "type": "string"
+        },
+        "DataService": {
+            "additionalProperties": false,
+            "description": "A collection of operations that provides access to one or more datasets or data processing functions.",
+            "properties": {
+                "endpoint_url": {
+                    "description": "The root location or primary endpoint of the service (a resolvable IRI).",
+                    "type": "string"
+                }
+            },
+            "title": "DataService",
+            "type": "object"
+        },
+        "Dataset": {
+            "additionalProperties": false,
+            "description": "A collection of data, published or curated, and available for access or download in one or more representations. A dataset is a conceptual entity, and can be represented by one or more distributions that serialize the dataset for transfer. Distributions of a dataset can be provided via data services.",
+            "properties": {
+                "description": {
+                    "description": "A free-text account of the resource.",
+                    "type": "string"
+                },
+                "distribution": {
+                    "$ref": "#/$defs/Distribution",
+                    "description": "An available distribution of a resource."
+                },
+                "has_part": {
+                    "description": "A related resource that is included either physically or logically in the described resource.",
+                    "items": {
+                        "$ref": "#/$defs/Resource"
+                    },
+                    "type": "array"
+                },
+                "identifier": {
+                    "description": "An unambiguous reference to the resource within a given context.",
+                    "type": "string"
+                },
+                "is_version_of": {
+                    "description": "A related resource of which the described resource is a version."
+                },
+                "keyword": {
+                    "description": "A keyword or tag describing the resource.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "landing_page": {
+                    "description": "A Web page that can be navigated to in a Web browser to gain access to a resource, its distributions and/or additional information.",
+                    "type": "string"
+                },
+                "license": {
+                    "$ref": "#/$defs/LicenseDocument",
+                    "description": "Information about licenses and rights SHOULD be provided on the level of a Distribution. Information about licenses and rights MAY be provided for a Dataset/Resource in addition to but not instead of the information provided for the Distributions of that Dataset. Providing license or rights information for a Dataset/Resource that is different from information provided for a Distribution of that Dataset SHOULD be avoided as this can create legal conflicts."
+                },
+                "modified": {
+                    "description": "Date on which the resource was (last) changed, updated or modified.",
+                    "pattern": "^(\\d{4})|(\\d{4}-[01]\\d)|(\\d{4}-[01]\\d-[0-3]\\d)|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z))|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z))|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z))$",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of an item or entity.",
+                    "type": "string"
+                },
+                "qualified_attribution": {
+                    "description": "Attribution is the ascribing of an entity to an agent.",
+                    "items": {
+                        "$ref": "#/$defs/Attribution"
+                    },
+                    "type": "array"
+                },
+                "qualified_part": {
+                    "description": "Link to a description of a `hasPart` relationship with another resource.",
+                    "items": {
+                        "$ref": "#/$defs/QualifiedPart"
+                    },
+                    "type": "array"
+                },
+                "qualified_relation": {
+                    "description": "",
+                    "items": {
+                        "$ref": "#/$defs/EntityInfluence"
+                    },
+                    "type": "array"
+                },
+                "relation": {
+                    "description": "The resource related to the source resource.",
+                    "items": {},
+                    "type": "array"
+                },
+                "title": {
+                    "description": "A summarily description of a item or entity. It is closely related to a name, but often less compact and more descriptive. Typically used for documents.",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Type of resource, e.g. `Dataset`.",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "Version indicator (name or identifier) of a resource.",
+                    "type": "string"
+                },
+                "was_attributed_to": {
+                    "$ref": "#/$defs/Agent",
+                    "description": "Attribution is the ascribing of an entity to an agent."
+                }
+            },
+            "title": "Dataset",
+            "type": "object"
+        },
+        "DatasetVersionObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [DatasetVersionObject](https://concepts.datalad.org/ontology/DatasetVersionObject).",
+            "properties": {
+                "custom_licenses": {
+                    "additionalProperties": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/LicenseDocumentObject__identifier_optional"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "description": "Container to declare custom licenses.",
+                    "type": "object"
+                },
+                "description": {
+                    "description": "A free-text account of the resource.",
+                    "type": "string"
+                },
+                "distribution": {
+                    "$ref": "#/$defs/FileContainerObject",
+                    "description": "An available distribution of a resource."
+                },
+                "has_part": {
+                    "description": "A related resource that is included either physically or logically in the described resource.",
+                    "items": {
+                        "$ref": "#/$defs/Resource"
+                    },
+                    "type": "array"
+                },
+                "identifier": {
+                    "description": "An unambiguous reference to the resource within a given context.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "is_version_of": {
+                    "description": "A related resource of which the described resource is a version.",
+                    "type": "string"
+                },
+                "keyword": {
+                    "description": "A keyword or tag describing the resource.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "landing_page": {
+                    "description": "A Web page that can be navigated to in a Web browser to gain access to a resource, its distributions and/or additional information.",
+                    "type": "string"
+                },
+                "license": {
+                    "description": "Information about licenses and rights SHOULD be provided on the level of a Distribution. Information about licenses and rights MAY be provided for a Dataset/Resource in addition to but not instead of the information provided for the Distributions of that Dataset. Providing license or rights information for a Dataset/Resource that is different from information provided for a Distribution of that Dataset SHOULD be avoided as this can create legal conflicts.",
+                    "type": "string"
+                },
+                "modified": {
+                    "description": "Date on which the resource was (last) changed, updated or modified.",
+                    "pattern": "^(\\d{4})|(\\d{4}-[01]\\d)|(\\d{4}-[01]\\d-[0-3]\\d)|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z))|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z))|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z))$",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of an item or entity.",
+                    "type": "string"
+                },
+                "qualified_attribution": {
+                    "description": "Attribution is the ascribing of an entity to an agent.",
+                    "items": {
+                        "$ref": "#/$defs/AgentInfluenceObject"
+                    },
+                    "type": "array"
+                },
+                "qualified_part": {
+                    "description": "Link to a description of a `hasPart` relationship with another resource.",
+                    "items": {
+                        "$ref": "#/$defs/QualifiedPart"
+                    },
+                    "type": "array"
+                },
+                "qualified_relation": {
+                    "description": "",
+                    "items": {
+                        "$ref": "#/$defs/EntityInfluenceObject"
+                    },
+                    "type": "array"
+                },
+                "relation": {
+                    "description": "The resource related to the source resource.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/EntityObject"
+                            },
+                            {
+                                "$ref": "#/$defs/GrantObject"
+                            },
+                            {
+                                "$ref": "#/$defs/PublicationObject"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "title": {
+                    "description": "A summarily description of a item or entity. It is closely related to a name, but often less compact and more descriptive. Typically used for documents.",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Type of resource, e.g. `Dataset`.",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "Version indicator (name or identifier) of a resource.",
+                    "type": "string"
+                },
+                "was_attributed_to": {
+                    "description": "Attribution is the ascribing of an entity to an agent.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/AgentObject"
+                            },
+                            {
+                                "$ref": "#/$defs/PersonObject"
+                            },
+                            {
+                                "$ref": "#/$defs/OrganizationObject"
+                            },
+                            {
+                                "$ref": "#/$defs/ResearchContributorObject"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                }
+            },
+            "title": "DatasetVersionObject",
+            "type": "object"
+        },
+        "DigitalDocument": {
+            "additionalProperties": false,
+            "description": "A digital document (text or binary).",
+            "properties": {
+                "access_service": {
+                    "$ref": "#/$defs/DataService",
+                    "description": "A data service that gives access to the distribution of a `Resource`"
+                },
+                "access_url": {
+                    "description": "A URL of the resource that gives access to a distribution of the dataset. E.g., landing page, feed, SPARQL endpoint.",
+                    "type": "string"
+                },
+                "byte_size": {
+                    "description": "The size of a distribution in bytes.",
+                    "type": "integer"
+                },
+                "checksum": {
+                    "$ref": "#/$defs/Checksum",
+                    "description": "The checksum property provides a mechanism that can be used to verify that the contents of a file or package have not changed."
+                },
+                "download_url": {
+                    "description": "URL of downloadable resourcefile in a given format.",
+                    "type": "string"
+                },
+                "has_part": {
+                    "description": "A related resource that is included either physically or logically in the described resource."
+                },
+                "license": {
+                    "$ref": "#/$defs/LicenseDocument",
+                    "description": "A legal document under which the resource is made available."
+                },
+                "qualified_access": {
+                    "$ref": "#/$defs/QualifiedAccess",
+                    "description": "Link to a description of a `access_service` relationship with `DCAT:DataService`."
+                },
+                "qualified_attribution": {
+                    "$ref": "#/$defs/Attribution",
+                    "description": "Attribution is the ascribing of an entity to an agent."
+                }
+            },
+            "title": "DigitalDocument",
+            "type": "object"
+        },
+        "DigitalDocumentObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [DigitalDocumentObject](https://concepts.datalad.org/ontology/DigitalDocumentObject).",
+            "properties": {
+                "access_service": {
+                    "$ref": "#/$defs/DataService",
+                    "description": "A data service that gives access to the distribution of a `Resource`"
+                },
+                "access_url": {
+                    "description": "A URL of the resource that gives access to a distribution of the dataset. E.g., landing page, feed, SPARQL endpoint.",
+                    "type": "string"
+                },
+                "byte_size": {
+                    "description": "The size of a distribution in bytes.",
+                    "type": "integer"
+                },
+                "checksum": {
+                    "$ref": "#/$defs/Checksum",
+                    "description": "The checksum property provides a mechanism that can be used to verify that the contents of a file or package have not changed."
+                },
+                "download_url": {
+                    "description": "URL of downloadable resourcefile in a given format.",
+                    "type": "string"
+                },
+                "has_part": {
+                    "description": "A related resource that is included either physically or logically in the described resource.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/DistributionObject"
+                            },
+                            {
+                                "$ref": "#/$defs/FileContainerObject"
+                            },
+                            {
+                                "$ref": "#/$defs/DigitalDocumentObject"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "license": {
+                    "description": "A legal document under which the resource is made available.",
+                    "type": "string"
+                },
+                "meta_code": {
+                    "description": "Context-constraint unique identifier of a metadata object. In contrast to `meta_id`, this identifier is not globally unique, but its uniqueness guarantees are limited to a single metadata document. This is analog to a relative IRI `@id` specification in JSON-LD that needs to be expanded with an appropriate (document) `@base` URI to become globally unique.",
+                    "type": "string"
+                },
+                "meta_type": {
+                    "description": "Type designator of a metadata object.",
+                    "enum": [
+                        "dlco:DigitalDocumentObject"
+                    ],
+                    "type": "string"
+                },
+                "qualified_access": {
+                    "$ref": "#/$defs/QualifiedAccess",
+                    "description": "Link to a description of a `access_service` relationship with `DCAT:DataService`."
+                },
+                "qualified_attribution": {
+                    "description": "Attribution is the ascribing of an entity to an agent.",
+                    "items": {
+                        "$ref": "#/$defs/AgentInfluenceObject"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "meta_code",
+                "meta_type"
+            ],
+            "title": "DigitalDocumentObject",
+            "type": "object"
+        },
+        "Distribution": {
+            "additionalProperties": false,
+            "description": "A specific representation of a dataset (part). Such a resource might be available in multiple serializations.",
+            "properties": {
+                "access_service": {
+                    "$ref": "#/$defs/DataService",
+                    "description": "A data service that gives access to the distribution of a `Resource`"
+                },
+                "access_url": {
+                    "description": "A URL of the resource that gives access to a distribution of the dataset. E.g., landing page, feed, SPARQL endpoint.",
+                    "type": "string"
+                },
+                "byte_size": {
+                    "description": "The size of a distribution in bytes.",
+                    "type": "integer"
+                },
+                "checksum": {
+                    "$ref": "#/$defs/Checksum",
+                    "description": "The checksum property provides a mechanism that can be used to verify that the contents of a file or package have not changed."
+                },
+                "download_url": {
+                    "description": "URL of downloadable resourcefile in a given format.",
+                    "type": "string"
+                },
+                "has_part": {
+                    "description": "A related resource that is included either physically or logically in the described resource."
+                },
+                "license": {
+                    "$ref": "#/$defs/LicenseDocument",
+                    "description": "A legal document under which the resource is made available."
+                },
+                "qualified_access": {
+                    "$ref": "#/$defs/QualifiedAccess",
+                    "description": "Link to a description of a `access_service` relationship with `DCAT:DataService`."
+                },
+                "qualified_attribution": {
+                    "$ref": "#/$defs/Attribution",
+                    "description": "Attribution is the ascribing of an entity to an agent."
+                }
+            },
+            "title": "Distribution",
+            "type": "object"
+        },
+        "DistributionObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [Object](https://concepts.datalad.org/ontology/Object).",
+            "properties": {
+                "access_service": {
+                    "$ref": "#/$defs/DataService",
+                    "description": "A data service that gives access to the distribution of a `Resource`"
+                },
+                "access_url": {
+                    "description": "A URL of the resource that gives access to a distribution of the dataset. E.g., landing page, feed, SPARQL endpoint.",
+                    "type": "string"
+                },
+                "byte_size": {
+                    "description": "The size of a distribution in bytes.",
+                    "type": "integer"
+                },
+                "checksum": {
+                    "$ref": "#/$defs/Checksum",
+                    "description": "The checksum property provides a mechanism that can be used to verify that the contents of a file or package have not changed."
+                },
+                "download_url": {
+                    "description": "URL of downloadable resourcefile in a given format.",
+                    "type": "string"
+                },
+                "has_part": {
+                    "description": "A related resource that is included either physically or logically in the described resource.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/DistributionObject"
+                            },
+                            {
+                                "$ref": "#/$defs/FileContainerObject"
+                            },
+                            {
+                                "$ref": "#/$defs/DigitalDocumentObject"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "license": {
+                    "description": "A legal document under which the resource is made available.",
+                    "type": "string"
+                },
+                "meta_code": {
+                    "description": "Context-constraint unique identifier of a metadata object. In contrast to `meta_id`, this identifier is not globally unique, but its uniqueness guarantees are limited to a single metadata document. This is analog to a relative IRI `@id` specification in JSON-LD that needs to be expanded with an appropriate (document) `@base` URI to become globally unique.",
+                    "type": "string"
+                },
+                "meta_type": {
+                    "description": "Type designator of a metadata object.",
+                    "enum": [
+                        "dlco:DistributionObject"
+                    ],
+                    "type": "string"
+                },
+                "qualified_access": {
+                    "$ref": "#/$defs/QualifiedAccess",
+                    "description": "Link to a description of a `access_service` relationship with `DCAT:DataService`."
+                },
+                "qualified_attribution": {
+                    "description": "Attribution is the ascribing of an entity to an agent.",
+                    "items": {
+                        "$ref": "#/$defs/AgentInfluenceObject"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "meta_code",
+                "meta_type"
+            ],
+            "title": "DistributionObject",
+            "type": "object"
+        },
+        "Entity": {
+            "additionalProperties": false,
+            "description": "A physical, digital, conceptual, or other kind of thing with some fixed aspects; entities may be real or imaginary.",
+            "title": "Entity",
+            "type": "object"
+        },
+        "EntityInfluence": {
+            "additionalProperties": false,
+            "description": "Capacity of an entity to have an effect on the character, development, or behavior of another.",
+            "properties": {
+                "entity": {
+                    "$ref": "#/$defs/Entity",
+                    "description": "References an entity which influenced an entity."
+                },
+                "had_role": {
+                    "$ref": "#/$defs/Role",
+                    "description": "The function of an entity or agent with respect to another entity or resource."
+                },
+                "influencer": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Activity"
+                        },
+                        {
+                            "$ref": "#/$defs/Agent"
+                        },
+                        {
+                            "$ref": "#/$defs/Entity"
+                        }
+                    ],
+                    "description": "Reference the resource (Entity, Agent, or Activity) whose influence is being qualified in a qualified influence pattern."
+                }
+            },
+            "title": "EntityInfluence",
+            "type": "object"
+        },
+        "EntityInfluenceObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [EntityInfluenceObject](https://concepts.datalad.org/ontology/EntityInfluenceObject).",
+            "properties": {
+                "entity": {
+                    "description": "References an entity which influenced an entity.",
+                    "type": "string"
+                },
+                "had_role": {
+                    "description": "The function of an entity or agent with respect to another entity or resource.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "influencer": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Activity"
+                        },
+                        {
+                            "$ref": "#/$defs/Agent"
+                        },
+                        {
+                            "$ref": "#/$defs/Entity"
+                        }
+                    ],
+                    "description": "Reference the resource (Entity, Agent, or Activity) whose influence is being qualified in a qualified influence pattern."
+                }
+            },
+            "title": "EntityInfluenceObject",
+            "type": "object"
+        },
+        "EntityObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [EntityObject](https://concepts.datalad.org/ontology/EntityObject).",
+            "properties": {
+                "meta_code": {
+                    "description": "Context-constraint unique identifier of a metadata object. In contrast to `meta_id`, this identifier is not globally unique, but its uniqueness guarantees are limited to a single metadata document. This is analog to a relative IRI `@id` specification in JSON-LD that needs to be expanded with an appropriate (document) `@base` URI to become globally unique.",
+                    "type": "string"
+                },
+                "meta_type": {
+                    "description": "Type designator of a metadata object.",
+                    "enum": [
+                        "dlco:EntityObject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "meta_code"
+            ],
+            "title": "EntityObject",
+            "type": "object"
+        },
+        "EntityRoleObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [EntityRoleObject](https://concepts.datalad.org/ontology/EntityRoleObject).",
+            "properties": {
+                "meta_id": {
+                    "description": "Globally unique identifier of a metadata object.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "meta_id"
+            ],
+            "title": "EntityRoleObject",
+            "type": "object"
+        },
+        "FileContainer": {
+            "additionalProperties": false,
+            "description": "Container that holds references to files, or other containers.",
+            "properties": {
+                "access_service": {
+                    "$ref": "#/$defs/DataService",
+                    "description": "A data service that gives access to the distribution of a `Resource`"
+                },
+                "access_url": {
+                    "description": "A URL of the resource that gives access to a distribution of the dataset. E.g., landing page, feed, SPARQL endpoint.",
+                    "type": "string"
+                },
+                "byte_size": {
+                    "description": "The size of a distribution in bytes.",
+                    "type": "integer"
+                },
+                "checksum": {
+                    "$ref": "#/$defs/Checksum",
+                    "description": "The checksum property provides a mechanism that can be used to verify that the contents of a file or package have not changed."
+                },
+                "download_url": {
+                    "description": "URL of downloadable resourcefile in a given format.",
+                    "type": "string"
+                },
+                "has_part": {
+                    "description": "A related resource that is included either physically or logically in the described resource."
+                },
+                "license": {
+                    "$ref": "#/$defs/LicenseDocument",
+                    "description": "A legal document under which the resource is made available."
+                },
+                "qualified_access": {
+                    "$ref": "#/$defs/QualifiedAccess",
+                    "description": "Link to a description of a `access_service` relationship with `DCAT:DataService`."
+                },
+                "qualified_attribution": {
+                    "$ref": "#/$defs/Attribution",
+                    "description": "Attribution is the ascribing of an entity to an agent."
+                },
+                "qualified_part": {
+                    "$ref": "#/$defs/FileContainerItem",
+                    "description": "Link to a description of a `hasPart` relationship with another resource."
+                }
+            },
+            "title": "FileContainer",
+            "type": "object"
+        },
+        "FileContainerItem": {
+            "additionalProperties": false,
+            "description": "Named reference of a content item in the context of a `FileContainer`",
+            "properties": {
+                "name": {
+                    "description": "The name of the part within the containing entity.",
+                    "type": "string"
+                },
+                "relation": {
+                    "description": "The resource related to the source resource."
+                }
+            },
+            "title": "FileContainerItem",
+            "type": "object"
+        },
+        "FileContainerItemObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [FileContainerItemObject](https://concepts.datalad.org/ontology/FileContainerItemObject).",
+            "properties": {
+                "name": {
+                    "description": "The name of the part within the containing entity.",
+                    "type": "string"
+                },
+                "relation": {
+                    "description": "The resource related to the source resource.",
+                    "type": "string"
+                }
+            },
+            "title": "FileContainerItemObject",
+            "type": "object"
+        },
+        "FileContainerObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [FileContainerObject](https://concepts.datalad.org/ontology/FileContainerObject).",
+            "properties": {
+                "access_service": {
+                    "$ref": "#/$defs/DataService",
+                    "description": "A data service that gives access to the distribution of a `Resource`"
+                },
+                "access_url": {
+                    "description": "A URL of the resource that gives access to a distribution of the dataset. E.g., landing page, feed, SPARQL endpoint.",
+                    "type": "string"
+                },
+                "byte_size": {
+                    "description": "The size of a distribution in bytes.",
+                    "type": "integer"
+                },
+                "checksum": {
+                    "$ref": "#/$defs/Checksum",
+                    "description": "The checksum property provides a mechanism that can be used to verify that the contents of a file or package have not changed."
+                },
+                "download_url": {
+                    "description": "URL of downloadable resourcefile in a given format.",
+                    "type": "string"
+                },
+                "has_part": {
+                    "description": "A related resource that is included either physically or logically in the described resource.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/DistributionObject"
+                            },
+                            {
+                                "$ref": "#/$defs/FileContainerObject"
+                            },
+                            {
+                                "$ref": "#/$defs/DigitalDocumentObject"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "license": {
+                    "description": "A legal document under which the resource is made available.",
+                    "type": "string"
+                },
+                "meta_code": {
+                    "description": "Context-constraint unique identifier of a metadata object. In contrast to `meta_id`, this identifier is not globally unique, but its uniqueness guarantees are limited to a single metadata document. This is analog to a relative IRI `@id` specification in JSON-LD that needs to be expanded with an appropriate (document) `@base` URI to become globally unique.",
+                    "type": "string"
+                },
+                "meta_type": {
+                    "description": "Type designator of a metadata object.",
+                    "enum": [
+                        "dlco:FileContainerObject"
+                    ],
+                    "type": "string"
+                },
+                "qualified_access": {
+                    "$ref": "#/$defs/QualifiedAccess",
+                    "description": "Link to a description of a `access_service` relationship with `DCAT:DataService`."
+                },
+                "qualified_attribution": {
+                    "description": "Attribution is the ascribing of an entity to an agent.",
+                    "items": {
+                        "$ref": "#/$defs/AgentInfluenceObject"
+                    },
+                    "type": "array"
+                },
+                "qualified_part": {
+                    "description": "Link to a description of a `hasPart` relationship with another resource.",
+                    "items": {
+                        "$ref": "#/$defs/FileContainerItemObject"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "meta_code",
+                "meta_type"
+            ],
+            "title": "FileContainerObject",
+            "type": "object"
+        },
+        "Grant": {
+            "additionalProperties": false,
+            "description": "A grant, typically financial or otherwise quantifiable, of resources.",
+            "properties": {
+                "cites_as_authority": {
+                    "description": "Entity that provides an authoritative description or definition of the subject.",
+                    "type": "string"
+                },
+                "identifier": {
+                    "description": "An unambiguous reference to the resource within a given context.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of an item or entity.",
+                    "type": "string"
+                },
+                "sponsor": {
+                    "$ref": "#/$defs/Agent",
+                    "description": "A person or organization that supports a thing through a pledge, promise, or financial contribution"
+                }
+            },
+            "title": "Grant",
+            "type": "object"
+        },
+        "GrantObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [GrantObject](https://concepts.datalad.org/ontology/GrantObject).",
+            "properties": {
+                "cites_as_authority": {
+                    "description": "Entity that provides an authoritative description or definition of the subject.",
+                    "type": "string"
+                },
+                "identifier": {
+                    "description": "An unambiguous reference to the resource within a given context.",
+                    "type": "string"
+                },
+                "meta_code": {
+                    "description": "Context-constraint unique identifier of a metadata object. In contrast to `meta_id`, this identifier is not globally unique, but its uniqueness guarantees are limited to a single metadata document. This is analog to a relative IRI `@id` specification in JSON-LD that needs to be expanded with an appropriate (document) `@base` URI to become globally unique.",
+                    "type": "string"
+                },
+                "meta_type": {
+                    "description": "Type designator of a metadata object.",
+                    "enum": [
+                        "dlco:GrantObject"
+                    ],
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of an item or entity.",
+                    "type": "string"
+                },
+                "sponsor": {
+                    "$ref": "#/$defs/Agent",
+                    "description": "A person or organization that supports a thing through a pledge, promise, or financial contribution"
+                }
+            },
+            "required": [
+                "meta_code"
+            ],
+            "title": "GrantObject",
+            "type": "object"
+        },
+        "HasMetaTypeDesignator": {
+            "additionalProperties": false,
+            "description": "(Mixin) class for an object with a metadata type designator.",
+            "properties": {
+                "meta_type": {
+                    "description": "Type designator of a metadata object.",
+                    "enum": [
+                        "dlco:HasMetaTypeDesignator"
+                    ],
+                    "type": "string"
+                }
+            },
+            "title": "HasMetaTypeDesignator",
+            "type": "object"
+        },
+        "HasRequiredMetaTypeDesignator": {
+            "additionalProperties": false,
+            "description": "(Mixin) class for an object with a required metadata type designator.",
+            "properties": {
+                "meta_type": {
+                    "description": "Type designator of a metadata object.",
+                    "enum": [
+                        "dlco:HasRequiredMetaTypeDesignator"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "meta_type"
+            ],
+            "title": "HasRequiredMetaTypeDesignator",
+            "type": "object"
+        },
+        "Influence": {
+            "additionalProperties": false,
+            "description": "Capacity of an entity, activity, or agent to have an effect on the character, development, or behavior of another.",
+            "properties": {
+                "had_role": {
+                    "$ref": "#/$defs/Role",
+                    "description": "The function of an entity or agent with respect to another entity or resource."
+                },
+                "influencer": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Activity"
+                        },
+                        {
+                            "$ref": "#/$defs/Agent"
+                        },
+                        {
+                            "$ref": "#/$defs/Entity"
+                        }
+                    ],
+                    "description": "Reference the resource (Entity, Agent, or Activity) whose influence is being qualified in a qualified influence pattern."
+                }
+            },
+            "title": "Influence",
+            "type": "object"
+        },
+        "LicenseDocument": {
+            "additionalProperties": false,
+            "description": "A legal document giving official permission to do something with a resource.",
+            "properties": {
+                "identifier": {
+                    "description": "An unambiguous reference to the resource within a given context.",
+                    "type": "string"
+                },
+                "license_text": {
+                    "description": "A copy of the actual text of a license reference, file or snippet that is associated with a License Identifier to aid in future analysis.",
+                    "type": "string"
+                }
+            },
+            "title": "LicenseDocument",
+            "type": "object"
+        },
+        "LicenseDocumentObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [LicenseDocumentObject](https://concepts.datalad.org/ontology/LicenseDocumentObject).",
+            "properties": {
+                "identifier": {
+                    "description": "An unambiguous reference to the resource within a given context.",
+                    "type": "string"
+                },
+                "license_text": {
+                    "description": "A copy of the actual text of a license reference, file or snippet that is associated with a License Identifier to aid in future analysis.",
+                    "type": "string"
+                },
+                "meta_id": {
+                    "description": "Globally unique identifier of a metadata object.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "meta_id"
+            ],
+            "title": "LicenseDocumentObject",
+            "type": "object"
+        },
+        "LicenseDocumentObject__identifier_optional": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [LicenseDocumentObject](https://concepts.datalad.org/ontology/LicenseDocumentObject).",
+            "properties": {
+                "identifier": {
+                    "description": "An unambiguous reference to the resource within a given context.",
+                    "type": "string"
+                },
+                "license_text": {
+                    "description": "A copy of the actual text of a license reference, file or snippet that is associated with a License Identifier to aid in future analysis.",
+                    "type": "string"
+                },
+                "meta_id": {
+                    "description": "Globally unique identifier of a metadata object.",
+                    "type": "string"
+                }
+            },
+            "required": [],
+            "title": "LicenseDocumentObject",
+            "type": "object"
+        },
+        "Location": {
+            "additionalProperties": false,
+            "description": "A location can be an identifiable geographic place (ISO 19112), but it can also be a non-geographic place such as a directory, row, or column. As such, there are numerous ways in which location can be expressed, such as by a coordinate, address, landmark, and so forth.",
+            "title": "Location",
+            "type": "object"
+        },
+        "MetadataObject": {
+            "additionalProperties": false,
+            "description": "Base class for schema elements. These are classes that add structure-defining properties to classes that implement ontology concepts. In other words, they define the concrete structure of a particular metadata document, include (and in particular) the linkage between different metadata records (e.g., reference by identifier vs. inlined).",
+            "title": "MetadataObject",
+            "type": "object"
+        },
+        "Organization": {
+            "additionalProperties": false,
+            "description": "A social or legal instititution such as a company, a society, or a university.",
+            "properties": {
+                "name": {
+                    "description": "Name of an item or entity.",
+                    "type": "string"
+                }
+            },
+            "title": "Organization",
+            "type": "object"
+        },
+        "OrganizationObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [OrganizationObject](https://concepts.datalad.org/ontology/OrganizationObject).",
+            "properties": {
+                "meta_code": {
+                    "description": "Context-constraint unique identifier of a metadata object. In contrast to `meta_id`, this identifier is not globally unique, but its uniqueness guarantees are limited to a single metadata document. This is analog to a relative IRI `@id` specification in JSON-LD that needs to be expanded with an appropriate (document) `@base` URI to become globally unique.",
+                    "type": "string"
+                },
+                "meta_type": {
+                    "description": "Type designator of a metadata object.",
+                    "enum": [
+                        "dlco:OrganizationObject"
+                    ],
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of an item or entity.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "meta_code"
+            ],
+            "title": "OrganizationObject",
+            "type": "object"
+        },
+        "Person": {
+            "additionalProperties": false,
+            "description": "Person agents are people.",
+            "properties": {
+                "email": {
+                    "description": "Email address associated with an entity.",
+                    "pattern": "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of an item or entity.",
+                    "type": "string"
+                }
+            },
+            "title": "Person",
+            "type": "object"
+        },
+        "PersonObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [PersonObject](https://concepts.datalad.org/ontology/PersonObject).",
+            "properties": {
+                "email": {
+                    "description": "Email address associated with an entity.",
+                    "pattern": "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])",
+                    "type": "string"
+                },
+                "meta_code": {
+                    "description": "Context-constraint unique identifier of a metadata object. In contrast to `meta_id`, this identifier is not globally unique, but its uniqueness guarantees are limited to a single metadata document. This is analog to a relative IRI `@id` specification in JSON-LD that needs to be expanded with an appropriate (document) `@base` URI to become globally unique.",
+                    "type": "string"
+                },
+                "meta_type": {
+                    "description": "Type designator of a metadata object.",
+                    "enum": [
+                        "dlco:PersonObject"
+                    ],
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of an item or entity.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "meta_code"
+            ],
+            "title": "PersonObject",
+            "type": "object"
+        },
+        "Publication": {
+            "additionalProperties": false,
+            "description": "TODO",
+            "properties": {
+                "citation": {
+                    "description": "TODO",
+                    "type": "string"
+                },
+                "doi": {
+                    "description": "TODO",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "URL of the item",
+                    "type": "string"
+                }
+            },
+            "title": "Publication",
+            "type": "object"
+        },
+        "PublicationObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [PublicationObject](https://concepts.datalad.org/ontology/PublicationObject).",
+            "properties": {
+                "citation": {
+                    "description": "TODO",
+                    "type": "string"
+                },
+                "doi": {
+                    "description": "TODO",
+                    "type": "string"
+                },
+                "meta_code": {
+                    "description": "Context-constraint unique identifier of a metadata object. In contrast to `meta_id`, this identifier is not globally unique, but its uniqueness guarantees are limited to a single metadata document. This is analog to a relative IRI `@id` specification in JSON-LD that needs to be expanded with an appropriate (document) `@base` URI to become globally unique.",
+                    "type": "string"
+                },
+                "meta_type": {
+                    "description": "Type designator of a metadata object.",
+                    "enum": [
+                        "dlco:PublicationObject"
+                    ],
+                    "type": "string"
+                },
+                "url": {
+                    "description": "URL of the item",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "meta_code"
+            ],
+            "title": "PublicationObject",
+            "type": "object"
+        },
+        "QualifiedAccess": {
+            "additionalProperties": false,
+            "description": "An association class for attaching additional information to an `access_service` relationship between a `DCAT:Distribution` and a `DCAT:DataService`.",
+            "properties": {
+                "access_id": {
+                    "description": "An identifier with which a resource distribution can be requested from a `DataService`.",
+                    "type": "string"
+                },
+                "entity": {
+                    "$ref": "#/$defs/Entity",
+                    "description": "References an entity which influenced an entity."
+                },
+                "had_role": {
+                    "$ref": "#/$defs/Role",
+                    "description": "The function of an entity or agent with respect to another entity or resource."
+                },
+                "influencer": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Activity"
+                        },
+                        {
+                            "$ref": "#/$defs/Agent"
+                        },
+                        {
+                            "$ref": "#/$defs/Entity"
+                        }
+                    ],
+                    "description": "Reference the resource (Entity, Agent, or Activity) whose influence is being qualified in a qualified influence pattern."
+                },
+                "relation": {
+                    "$ref": "#/$defs/DataService",
+                    "description": "The resource related to the source resource."
+                }
+            },
+            "title": "QualifiedAccess",
+            "type": "object"
+        },
+        "QualifiedPart": {
+            "additionalProperties": false,
+            "description": "An association class for attaching additional information to a hasPart relationship between DCAT Resources",
+            "properties": {
+                "name": {
+                    "description": "The name of the part within the containing entity.",
+                    "type": "string"
+                },
+                "relation": {
+                    "description": "The resource related to the source resource."
+                }
+            },
+            "title": "QualifiedPart",
+            "type": "object"
+        },
+        "Relationship": {
+            "additionalProperties": false,
+            "description": "An association class for attaching additional information to a relationship between Resources/Entities",
+            "properties": {
+                "entity": {
+                    "$ref": "#/$defs/Entity",
+                    "description": "References an entity which influenced an entity."
+                },
+                "had_role": {
+                    "$ref": "#/$defs/Role",
+                    "description": "The function of an entity or agent with respect to another entity or resource."
+                },
+                "influencer": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Activity"
+                        },
+                        {
+                            "$ref": "#/$defs/Agent"
+                        },
+                        {
+                            "$ref": "#/$defs/Entity"
+                        }
+                    ],
+                    "description": "Reference the resource (Entity, Agent, or Activity) whose influence is being qualified in a qualified influence pattern."
+                },
+                "relation": {
+                    "description": "The resource related to the source resource."
+                }
+            },
+            "title": "Relationship",
+            "type": "object"
+        },
+        "ResearchContributor": {
+            "additionalProperties": false,
+            "description": "A person that has or could contribute to some research in any capacity.",
+            "properties": {
+                "affiliation": {
+                    "$ref": "#/$defs/Organization",
+                    "description": "An organization that an agent is affiliated with."
+                },
+                "email": {
+                    "description": "Email address associated with an entity.",
+                    "pattern": "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of an item or entity.",
+                    "type": "string"
+                },
+                "orcid": {
+                    "description": "A standard alphanumeric code to uniquely identify scientific and other academic authors and contributors.",
+                    "pattern": "^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$",
+                    "type": "string"
+                }
+            },
+            "title": "ResearchContributor",
+            "type": "object"
+        },
+        "ResearchContributorObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [ResearchContributorObject](https://concepts.datalad.org/ontology/ResearchContributorObject).",
+            "properties": {
+                "affiliation": {
+                    "description": "An organization that an agent is affiliated with.",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "Email address associated with an entity.",
+                    "pattern": "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])",
+                    "type": "string"
+                },
+                "meta_code": {
+                    "description": "Context-constraint unique identifier of a metadata object. In contrast to `meta_id`, this identifier is not globally unique, but its uniqueness guarantees are limited to a single metadata document. This is analog to a relative IRI `@id` specification in JSON-LD that needs to be expanded with an appropriate (document) `@base` URI to become globally unique.",
+                    "type": "string"
+                },
+                "meta_type": {
+                    "description": "Type designator of a metadata object.",
+                    "enum": [
+                        "dlco:ResearchContributorObject"
+                    ],
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of an item or entity.",
+                    "type": "string"
+                },
+                "orcid": {
+                    "description": "A standard alphanumeric code to uniquely identify scientific and other academic authors and contributors.",
+                    "pattern": "^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "meta_code"
+            ],
+            "title": "ResearchContributorObject",
+            "type": "object"
+        },
+        "Resource": {
+            "additionalProperties": false,
+            "description": "Resource published or curated by a single agent.",
+            "properties": {
+                "description": {
+                    "description": "A free-text account of the resource.",
+                    "type": "string"
+                },
+                "has_part": {
+                    "description": "A related resource that is included either physically or logically in the described resource.",
+                    "items": {
+                        "$ref": "#/$defs/Resource"
+                    },
+                    "type": "array"
+                },
+                "identifier": {
+                    "description": "An unambiguous reference to the resource within a given context.",
+                    "type": "string"
+                },
+                "keyword": {
+                    "description": "A keyword or tag describing the resource.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "landing_page": {
+                    "description": "A Web page that can be navigated to in a Web browser to gain access to a resource, its distributions and/or additional information.",
+                    "type": "string"
+                },
+                "license": {
+                    "$ref": "#/$defs/LicenseDocument",
+                    "description": "Information about licenses and rights SHOULD be provided on the level of a Distribution. Information about licenses and rights MAY be provided for a Dataset/Resource in addition to but not instead of the information provided for the Distributions of that Dataset. Providing license or rights information for a Dataset/Resource that is different from information provided for a Distribution of that Dataset SHOULD be avoided as this can create legal conflicts."
+                },
+                "modified": {
+                    "description": "Date on which the resource was (last) changed, updated or modified.",
+                    "pattern": "^(\\d{4})|(\\d{4}-[01]\\d)|(\\d{4}-[01]\\d-[0-3]\\d)|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z))|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z))|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z))$",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of an item or entity.",
+                    "type": "string"
+                },
+                "qualified_attribution": {
+                    "description": "Attribution is the ascribing of an entity to an agent.",
+                    "items": {
+                        "$ref": "#/$defs/Attribution"
+                    },
+                    "type": "array"
+                },
+                "qualified_part": {
+                    "description": "Link to a description of a `hasPart` relationship with another resource.",
+                    "items": {
+                        "$ref": "#/$defs/QualifiedPart"
+                    },
+                    "type": "array"
+                },
+                "qualified_relation": {
+                    "description": "",
+                    "items": {
+                        "$ref": "#/$defs/EntityInfluence"
+                    },
+                    "type": "array"
+                },
+                "relation": {
+                    "description": "The resource related to the source resource.",
+                    "items": {},
+                    "type": "array"
+                },
+                "title": {
+                    "description": "A summarily description of a item or entity. It is closely related to a name, but often less compact and more descriptive. Typically used for documents.",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Type of resource, e.g. `Dataset`.",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "Version indicator (name or identifier) of a resource.",
+                    "type": "string"
+                },
+                "was_attributed_to": {
+                    "$ref": "#/$defs/Agent",
+                    "description": "Attribution is the ascribing of an entity to an agent."
+                }
+            },
+            "title": "Resource",
+            "type": "object"
+        },
+        "Role": {
+            "additionalProperties": false,
+            "description": "A role is the function of a resource or agent with respect to another resource, in the context of resource attribution or resource relationships.",
+            "title": "Role",
+            "type": "object"
+        },
+        "SoftwareAgent": {
+            "additionalProperties": false,
+            "description": "Running software.",
+            "properties": {
+                "name": {
+                    "description": "Name of an item or entity.",
+                    "type": "string"
+                }
+            },
+            "title": "SoftwareAgent",
+            "type": "object"
+        },
+        "TypedObject": {
+            "additionalProperties": false,
+            "description": "Schema-specific implementation of [TypedObject](https://concepts.datalad.org/ontology/TypedObject).",
+            "properties": {
+                "meta_type": {
+                    "description": "Type designator of a metadata object.",
+                    "enum": [
+                        "dlco:TypedObject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "meta_type"
+            ],
+            "title": "TypedObject",
+            "type": "object"
+        }
+    },
+    "$id": "https://concepts.datalad.org/schemas/dataset-version",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "additionalProperties": true,
+    "description": "Schema-specific implementation of [DatasetVersionObject](https://concepts.datalad.org/ontology/DatasetVersionObject).",
+    "metamodel_version": "1.7.0",
+    "properties": {
+        "custom_licenses": {
+            "additionalProperties": {
+                "anyOf": [
+                    {
+                        "$ref": "#/$defs/LicenseDocumentObject__identifier_optional"
+                    },
+                    {
+                        "type": "null"
+                    }
+                ]
+            },
+            "description": "Container to declare custom licenses.",
+            "type": "object"
+        },
+        "description": {
+            "description": "A free-text account of the resource.",
+            "type": "string"
+        },
+        "distribution": {
+            "$ref": "#/$defs/FileContainerObject",
+            "description": "An available distribution of a resource."
+        },
+        "has_part": {
+            "description": "A related resource that is included either physically or logically in the described resource.",
+            "items": {
+                "$ref": "#/$defs/Resource"
+            },
+            "type": "array"
+        },
+        "identifier": {
+            "description": "An unambiguous reference to the resource within a given context.",
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "is_version_of": {
+            "description": "A related resource of which the described resource is a version.",
+            "type": "string"
+        },
+        "keyword": {
+            "description": "A keyword or tag describing the resource.",
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "landing_page": {
+            "description": "A Web page that can be navigated to in a Web browser to gain access to a resource, its distributions and/or additional information.",
+            "type": "string"
+        },
+        "license": {
+            "description": "Information about licenses and rights SHOULD be provided on the level of a Distribution. Information about licenses and rights MAY be provided for a Dataset/Resource in addition to but not instead of the information provided for the Distributions of that Dataset. Providing license or rights information for a Dataset/Resource that is different from information provided for a Distribution of that Dataset SHOULD be avoided as this can create legal conflicts.",
+            "type": "string"
+        },
+        "modified": {
+            "description": "Date on which the resource was (last) changed, updated or modified.",
+            "pattern": "^(\\d{4})|(\\d{4}-[01]\\d)|(\\d{4}-[01]\\d-[0-3]\\d)|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z))|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z))|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z))$",
+            "type": "string"
+        },
+        "name": {
+            "description": "Name of an item or entity.",
+            "type": "string"
+        },
+        "qualified_attribution": {
+            "description": "Attribution is the ascribing of an entity to an agent.",
+            "items": {
+                "$ref": "#/$defs/AgentInfluenceObject"
+            },
+            "type": "array"
+        },
+        "qualified_part": {
+            "description": "Link to a description of a `hasPart` relationship with another resource.",
+            "items": {
+                "$ref": "#/$defs/QualifiedPart"
+            },
+            "type": "array"
+        },
+        "qualified_relation": {
+            "description": "",
+            "items": {
+                "$ref": "#/$defs/EntityInfluenceObject"
+            },
+            "type": "array"
+        },
+        "relation": {
+            "description": "The resource related to the source resource.",
+            "items": {
+                "anyOf": [
+                    {
+                        "$ref": "#/$defs/EntityObject"
+                    },
+                    {
+                        "$ref": "#/$defs/GrantObject"
+                    },
+                    {
+                        "$ref": "#/$defs/PublicationObject"
+                    }
+                ]
+            },
+            "type": "array"
+        },
+        "title": {
+            "description": "A summarily description of a item or entity. It is closely related to a name, but often less compact and more descriptive. Typically used for documents.",
+            "type": "string"
+        },
+        "type": {
+            "description": "Type of resource, e.g. `Dataset`.",
+            "type": "string"
+        },
+        "version": {
+            "description": "Version indicator (name or identifier) of a resource.",
+            "type": "string"
+        },
+        "was_attributed_to": {
+            "description": "Attribution is the ascribing of an entity to an agent.",
+            "items": {
+                "anyOf": [
+                    {
+                        "$ref": "#/$defs/AgentObject"
+                    },
+                    {
+                        "$ref": "#/$defs/PersonObject"
+                    },
+                    {
+                        "$ref": "#/$defs/OrganizationObject"
+                    },
+                    {
+                        "$ref": "#/$defs/ResearchContributorObject"
+                    }
+                ]
+            },
+            "type": "array"
+        }
+    },
+    "title": "dataset-version",
+    "type": "object",
+    "version": "UNRELEASED"
+}

@@ -1,5 +1,5 @@
 
-const schema_file = "https://abcd-j.github.io/schema/schema.json";
+const schema_file = "./assets/dataset-version-schema.json";
 var editor
 fetch(schema_file)
   .then((response) => {
@@ -17,7 +17,7 @@ fetch(schema_file)
     console.log(obj)
     console.log(obj.properties)
     obj.format = "categories"
-    obj.title = "ABCD-J Data Catalog Form"
+    obj.title = "dataset-version form"
 
     for (const [key, value] of Object.entries(obj.properties)) {
       // Create/format title
@@ -42,7 +42,7 @@ fetch(schema_file)
         value.format = "date"
       }
       // Set minitems on required arrays
-      if (value.hasOwnProperty("type") && value.type == "array" && obj.required.includes(key)) {
+      if (value.hasOwnProperty("type") && value.type == "array" && obj.required?.includes(key)) {
         value.minItems = "1"
       }
 
